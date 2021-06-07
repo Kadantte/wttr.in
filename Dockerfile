@@ -4,6 +4,7 @@ FROM golang:1-alpine as builder
 WORKDIR /app
 
 COPY ./share/we-lang/we-lang.go /app
+COPY ./share/we-lang/go.mod /app
 
 RUN apk add --no-cache git
 
@@ -21,7 +22,7 @@ WORKDIR /app
 
 COPY ./requirements.txt /app
 
-ENV LLVM_CONFIG=/usr/bin/llvm9-config
+ENV LLVM_CONFIG=/usr/bin/llvm-config
 
 RUN apk add --no-cache --virtual .build \
     autoconf \
@@ -29,7 +30,7 @@ RUN apk add --no-cache --virtual .build \
     g++ \
     gcc \
     jpeg-dev \
-    llvm9-dev\
+    llvm10-dev\
     make \
     zlib-dev \
     && apk add --no-cache \
@@ -40,7 +41,7 @@ RUN apk add --no-cache --virtual .build \
     py3-gevent \
     zlib \
     jpeg \
-    llvm9 \
+    llvm10 \
     libtool \
     supervisor \
     py3-numpy-dev \
